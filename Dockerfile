@@ -1,19 +1,22 @@
-FROM node:10
+# Use the latest LTS version of Node.js (Node 18)
+FROM node:18
 
-# Create app directory
+# Set working directory
 WORKDIR /usr/src/app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
+# Install dependencies
 RUN npm install
-# If you are building your code for production
+# If you're building for production, uncomment the following:
 # RUN npm ci --only=production
 
-# Bundle app source
+# Copy the entire project source to the container
 COPY . .
 
+# Expose the port the app runs on
 EXPOSE 8080
+
+# Start the application
 CMD [ "node", "server.js" ]

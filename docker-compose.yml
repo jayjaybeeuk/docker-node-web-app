@@ -1,0 +1,11 @@
+services:
+  node-app:
+    build: .
+    ports:
+      - "8080:8080"  # Maps port 8080 on the host to port 8080 in the container
+    volumes:
+      - .:/usr/src/app  # Mounts the project directory into the container for development
+      - /usr/src/app/node_modules  # Avoids overwriting node_modules with the host volume
+    environment:
+      NODE_ENV: development  # You can change this to production for production builds
+    command: npm start  # Start the application using npm start, which will call node server.js if configured

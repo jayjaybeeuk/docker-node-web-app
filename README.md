@@ -1,11 +1,13 @@
 # docker-node-web-app
-Docker Node web app
+
+A simple Docker node app that will create an image to display an app running "hello world"
 
 ## Building your image
+
 Go to the directory that has your Dockerfile and run the following command to build the Docker image. The -t flag lets you tag your image so it's easier to find later using the docker images command:
 
 ```
-docker build -t <your username>/node-web-app .
+docker-compose build
 ```
 
 Your image will now be listed by Docker:
@@ -16,14 +18,21 @@ $ docker images
 # Example
 REPOSITORY                      TAG        ID              CREATED
 node                            10         1934b0b038d1    5 days ago
-<your username>/node-web-app    latest     d64d3505b0d2    1 minute ago
+docker-node-web-app-node-app    latest     d64d3505b0d2    1 minute ago
 ```
 
 ## Run the image
+
 Running your image with -d runs the container in detached mode, leaving the container running in the background. The -p flag redirects a public port to a private port inside the container. Run the image you previously built:
 
 ```
-docker run -p 49160:8080 -d <your username>/node-web-app
+docker run -p 49160:8080 -d docker-node-web-app-node-app
+```
+
+or just use the docker-compose command:
+
+```
+docker-compose up
 ```
 
 Print the output of your app:
@@ -41,13 +50,13 @@ Running on http://localhost:8080
 
 If you need to go inside the container you can use the exec command:
 
-
 ```
 # Enter the container
 $ docker exec -it <container id> /bin/bash
 ```
 
 ## Test
+
 To test your app, get the port of your app that Docker mapped:
 
 ```
@@ -55,7 +64,7 @@ $ docker ps
 
 # Example
 ID            IMAGE                                COMMAND    ...   PORTS
-ecce33b30ebf  <your username>/node-web-app:latest  npm start  ...   49160->8080
+ecce33b30ebf  docker-node-web-app-node-app:latest  npm start  ...   49160->8080
 ```
 
 In the example above, Docker mapped the 8080 port inside of the container to the port 49160 on your machine.
